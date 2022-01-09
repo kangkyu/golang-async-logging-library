@@ -28,13 +28,11 @@ func New(w io.Writer) *Alog {
 	if w == nil {
 		w = os.Stdout
 	}
-	mch := make(chan string)
-	ech := make(chan error)
 	var mu sync.Mutex
 	return &Alog{
 		dest: w,
-		msgCh: mch,
-		errorCh: ech,
+		msgCh: make(chan string),
+		errorCh: make(chan error),
 		m: &mu,
 	}
 }
